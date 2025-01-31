@@ -1,36 +1,66 @@
+import { useEffect, useState } from "react"
+import { getAllTodos } from "../api/todoAPI";
+import ToDoRow from "./ToDoRow";
+
 export default function ToDo(){
+    const [toDos, setToDos] = useState([]);
+    const [doneOnes, setDoneOnes] = useState([]);
+
+    useEffect(() => {
+        (async function getToDos(){
+          try{
+          const response = await getAllTodos(); 
+
+          const done = response.filter(todo => todo.status == 'done');
+          const notDone = response.filter(todo => todo.status == 'not done');
+
+            setToDos(notDone);
+            setDoneOnes(done);
+
+          } catch (err){
+            console.log(err.message);
+          }
+        })();
+      },[]);
+
 
     return(
         <>
         <header>
             <h1>To Do List</h1>
-            <p class="date">Date: 31.01.2025</p>
+            <p className="date">Date: 31.01.2025</p>
         </header>
         <main>
-            <div class="add-todo">
+            <div className="add-todo">
                 <form action="">
                     <h2>Add To Do:</h2>
-                    <label for="add-todo">
+                    <label htmlFor="add-todo">
                         <input type="text" name="todo" id="todo"/>
                         <button>Add</button>
                     </label>
                 </form>
             </div>
 
-            <div class="today-todo">
+            <div className="today-todo">
                 <h2>Today ToDo's</h2>
                 <ul>
-                    <li>Study<div class="done-not"><i class="fas fa-check tick"></i><i class="fas fa-edit pen"></i><i class="fas fa-times x"></i></div></li>
-                    <li>Do laundry<div class="done-not"><i class="fas fa-check tick"></i><i class="fas fa-edit pen"></i><i class="fas fa-times x"></i></div></li>
-                    <li>Go to dance classes<div class="done-not"><i class="fas fa-check tick"></i><i class="fas fa-edit pen"></i><i class="fas fa-times x"></i></div></li>
-                </ul>
+                {toDos.length > 0 ?
+                toDos.map(todo => 
+                    <ToDoRow 
+                        key={todo._id}
+                        action = {todo.action}
+                    />
+                )
+                : <p>No To Do's yet.</p>  
+                }
+                </ul> 
             </div>
 
-            <div class="done">
+            <div className="done">
                 <h2>Done</h2>
                 <ul>
-                    <li><i class="fas fa-check finished"></i>Walk the dog</li>
-                    <li><i class="fas fa-check finished"></i>Do interview</li>
+                    <li><i className="fas fa-check finished"></i>Walk the dog</li>
+                    <li><i className="fas fa-check finished"></i>Do interview</li>
                 </ul>
             </div>
         </main>
