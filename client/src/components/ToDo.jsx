@@ -2,10 +2,13 @@ import { useEffect, useState } from "react"
 import { getAllTodos } from "../api/todoAPI";
 import ToDoRow from "./ToDoRow";
 import DoneToDos from "./DoneToDos";
+import { formatDate } from "../heplers/dateFormatter";
 
 export default function ToDo(){
     const [toDos, setToDos] = useState([]);
     const [doneOnes, setDoneOnes] = useState([]);
+    const date = formatDate();
+
 
     useEffect(() => {
         (async function getToDos(){
@@ -29,7 +32,7 @@ export default function ToDo(){
         <>
         <header>
             <h1>To Do List</h1>
-            <p className="date">Date: 31.01.2025</p>
+            <p className="date">Date: {date.day}.{date.formattedMonth}.{date.year}</p>
         </header>
         <main>
             <div className="add-todo">
