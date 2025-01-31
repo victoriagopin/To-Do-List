@@ -1351,17 +1351,15 @@
             "LmN0123Opq" : {
                 "action": "Go to dance classes",
                 "status": "not done"
-            }
-        },
-        done : {
-            "23c62d76-8152-4626-8712-eeb96381be10" : {
-                    "action": "Go to the dentist",
-                    "status": "done"
             },
-            "3987279d-0ad4-4afb-8ca9-5b256ae3b298" : {
-                    "action": "Go to the gym",
-                    "status": "done"
-            }
+            "23c62d76-8152-4626-8712-eeb96381be10" : {
+                "action": "Go to the dentist",
+                "status": "done"
+        },
+        "3987279d-0ad4-4afb-8ca9-5b256ae3b298" : {
+                "action": "Go to the gym",
+                "status": "done"
+        }
         }
     };
     var rules$1 = {
