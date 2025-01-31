@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { getAllTodos } from "../api/todoAPI";
 import ToDoRow from "./ToDoRow";
+import DoneToDos from "./DoneToDos";
 
 export default function ToDo(){
     const [toDos, setToDos] = useState([]);
@@ -59,8 +60,14 @@ export default function ToDo(){
             <div className="done">
                 <h2>Done</h2>
                 <ul>
-                    <li><i className="fas fa-check finished"></i>Walk the dog</li>
-                    <li><i className="fas fa-check finished"></i>Do interview</li>
+                    {doneOnes.length > 0 ?
+                    doneOnes.map(todo => 
+                        <DoneToDos 
+                        key={todo._id}
+                        action={todo.action}
+                        />
+                    )
+                    : null}
                 </ul>
             </div>
         </main>
