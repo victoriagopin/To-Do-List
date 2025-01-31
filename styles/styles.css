@@ -1,0 +1,119 @@
+body{
+    margin: auto;
+    padding: 0;
+    box-sizing: border-box;
+    background-color:#e6e0f8;
+    width: 40%;
+}
+
+header h1 {
+    text-align: center;
+}
+
+header {
+    padding: 8px;
+    background-color: #8682ff;
+    position: relative;
+}
+
+header p {
+    border: 2px solid #8682ff;
+    width: 124px;
+    padding: 10px;
+    text-align: center;
+    top: 84%;
+    right: 0%;
+    position: absolute;
+}
+
+.add-todo form h2 {
+    font-size: larger;
+    margin-bottom: 4px;
+}
+
+.add-todo form input {
+    border: 1px solid #8682ff;
+    border-radius: 6px;
+}
+
+.add-todo form button {
+    background: #8682ff;
+    border: none;
+    border-radius: 5px;
+    padding: 2px 15px;
+    color: #e6e0f8;
+}
+
+.today-todo {
+    display: flex;
+    flex-direction: column;
+    margin-top: 26px;
+}
+
+.today-todo h2 {
+    text-align: center;
+}
+
+.today-todo ul {
+    display: flex;
+    flex-direction: column;
+    gap: 19px;
+}
+
+.today-todo ul li {
+    list-style: none;
+    border-bottom: 1px solid;
+    padding-bottom: 9px;
+    display: flex;
+    justify-content: space-between;
+}
+
+div.done-not i.tick{
+    background: rgb(103, 255, 103);
+    padding: 3px;
+    color: white;
+    margin-right: 4px;
+}
+
+div.done-not i.x{
+    background: rgb(249, 51, 51);
+    padding: 3px 6px 3px 6px;
+    color: white;
+}
+
+div.done-not i.tick:hover, div.done-not i.x:hover{
+    cursor: pointer;
+}
+
+.done {
+    display: flex;
+    flex-direction: column;
+}
+
+.done h2 {
+    text-align: center;
+    margin-top: 93px;
+    text-decoration: underline;
+}
+
+.done ul {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.done ul li {
+    list-style: none;
+}
+
+i.finished{
+    background: #8682ff;
+    padding: 3px;
+    color: white;
+    margin-right: 4px;
+}
+
+i.finished:hover{
+    cursor: not-allowed;
+}
+
