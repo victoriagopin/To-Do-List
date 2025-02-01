@@ -1,26 +1,29 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { createTodo, getAllTodos } from "../../api/todoAPI";
 import ToDoRow from "./ToDoRow";
 import DoneToDos from "./DoneToDos";
-import { formatDate } from "../../heplers/dateFormatter";
+import { UserContext } from "../../contexts/UserContext";
+import { Link } from "react-router-dom";
 
 export default function Home(){
+    const {user} = useContext(UserContext);
     const [values, setValues] = useState({
         action: '',
-        status: 'not done'
+        status: 'not done',
+        ownerId: user?._id
     })
     const [toDos, setToDos] = useState([]);
     const [doneOnes, setDoneOnes] = useState([]);
-    const date = formatDate();
-
 
     useEffect(() => {
         (async function getToDos(){
           try{
           const response = await getAllTodos(); 
+            console.log(response);
+            
 
-          const done = response.filter(todo => todo.status == 'done');
-          const notDone = response.filter(todo => todo.status == 'not done');
+          const done = response.filter(todo => todo.status == 'done' && todo.ownerId == user._id);
+          const notDone = response.filter(todo => todo.status == 'not done' && todo.ownerId == user._id);
 
             setToDos(notDone);
             setDoneOnes(done);
@@ -43,7 +46,7 @@ export default function Home(){
         try{
             await createTodo(values);
             const newToDos = await getAllTodos(); 
-            const notDone = newToDos.filter(todo => todo.status == 'not done');
+            const notDone = newToDos.filter(todo => todo.status == 'not done' && todo.ownerId == user._id);
             
             setToDos(notDone)
           } catch (err){
@@ -54,7 +57,8 @@ export default function Home(){
     return(
   
         <main>
-            <div className="add-todo">
+            {user ? (<>
+                <div className="add-todo">
                 <form onSubmit={onAdd}>
                     <h2>Add To Do:</h2>
                     <label htmlFor="add-todo">
@@ -92,6 +96,8 @@ export default function Home(){
                     : null}
                 </ul>
             </div>
+            </>): <p className="no-user"><Link to="/login">Log In</Link> or <Link to="/register">Register</Link> to be able to see or create your To Do List</p>}
+           
         </main>
     )
 }
