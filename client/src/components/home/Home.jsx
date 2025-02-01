@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react"
-import { createTodo, getAllTodos } from "../api/todoAPI";
+import { createTodo, getAllTodos } from "../../api/todoAPI";
 import ToDoRow from "./ToDoRow";
 import DoneToDos from "./DoneToDos";
-import { formatDate } from "../heplers/dateFormatter";
+import { formatDate } from "../../heplers/dateFormatter";
 
-export default function ToDo(){
+export default function Home(){
     const [values, setValues] = useState({
         action: '',
         status: 'not done'
@@ -53,14 +53,14 @@ export default function ToDo(){
 
     return(
         <>
-        <header>
+        {/* <header>
             <div className="auth">
                <a href="">Log In</a>
                <a href="">Register</a>
             </div>
             <h1>To Do List</h1>
             <p className="date">Date: {date.day}.{date.formattedMonth}.{date.year}</p>
-        </header>
+        </header> */}
         <main>
             <div className="add-todo">
                 <form onSubmit={onAdd}>
