@@ -40,27 +40,19 @@ export default function Home(){
 
       const onAdd = async (e) => {
         e.preventDefault();
-        // try{
-        //     await createTodo(values);
-        //     const newToDos = await getAllTodos(); 
-        //     const notDone = newToDos.filter(todo => todo.status == 'not done');
+        try{
+            await createTodo(values);
+            const newToDos = await getAllTodos(); 
+            const notDone = newToDos.filter(todo => todo.status == 'not done');
             
-        //     setToDos(notDone)
-        //   } catch (err){
-        //     console.log(err.message);
-        //   }   
+            setToDos(notDone)
+          } catch (err){
+            console.log(err.message);
+          }   
       }
 
     return(
-        <>
-        {/* <header>
-            <div className="auth">
-               <a href="">Log In</a>
-               <a href="">Register</a>
-            </div>
-            <h1>To Do List</h1>
-            <p className="date">Date: {date.day}.{date.formattedMonth}.{date.year}</p>
-        </header> */}
+  
         <main>
             <div className="add-todo">
                 <form onSubmit={onAdd}>
@@ -101,6 +93,5 @@ export default function Home(){
                 </ul>
             </div>
         </main>
-        </>
     )
 }

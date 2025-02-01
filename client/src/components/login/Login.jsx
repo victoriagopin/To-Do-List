@@ -5,7 +5,7 @@ import { post } from '../../api/requester'
 import { UserContext } from '../../contexts/UserContext';
 
 export default function Login(){
-    const {setUser} = useContext(UserContext);
+    const {setUser, updateIsAuthenticated} = useContext(UserContext);
     const [values, setValues] = useState({
         email : '',
         password : ''
@@ -24,6 +24,8 @@ export default function Login(){
          try{
             const res = await post('users/login', values)
             setUser(res);
+            updateIsAuthenticated();
+            localStorage.setItem('auth', JSON.stringify(res.accessToken));
             navigate('/')
          } catch (err){
             console.log(err.message);
