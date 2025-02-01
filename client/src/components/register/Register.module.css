@@ -1,0 +1,42 @@
+form.form-register {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 80px;
+}
+
+label.email, label.pass, label.re-pass{
+    display: flex;
+    align-items: baseline;
+    flex-direction: column;
+}
+
+p.email,p.pass, p.re-pass {
+    margin-right: 5px;
+    margin-bottom: 0;
+}
+
+input.email, input.pass, input.re-pass{
+    background: none;
+    border: 1px solid;
+    border-radius: 6px;
+}
+
+.register-btn{
+    margin-top: 30px;
+    border-radius: 6px;
+    padding: 10px 19px;
+    background: #8682ff;
+    border: none;
+    color:#e6e0f8;
+}
+
+.register-btn:hover{
+    margin-top: 30px;
+    cursor: pointer;
+    border-radius: 6px;
+    padding: 10px 19px;
+    background: #e6e0f8;
+    border: 1px solid #8682ff;
+    color: #8682ff;
+}
