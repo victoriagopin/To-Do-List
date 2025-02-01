@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react"
-import { getAllTodos } from "../api/todoAPI";
+import { createTodo, getAllTodos } from "../api/todoAPI";
 import ToDoRow from "./ToDoRow";
 import DoneToDos from "./DoneToDos";
 import { formatDate } from "../heplers/dateFormatter";
 
 export default function ToDo(){
+    const [values, setValues] = useState({
+        action: '',
+        status: 'not done'
+    })
     const [toDos, setToDos] = useState([]);
     const [doneOnes, setDoneOnes] = useState([]);
     const date = formatDate();
@@ -27,19 +31,42 @@ export default function ToDo(){
         })();
       },[]);
 
+      const onChnageValue =  (e) => {
+        setValues(prevValues => ({
+            ...prevValues,
+            [e.target.name]: e.target.value
+        }))
+      }
+
+      const onAdd = async (e) => {
+        e.preventDefault();
+        // try{
+        //     await createTodo(values);
+        //     const newToDos = await getAllTodos(); 
+        //     const notDone = newToDos.filter(todo => todo.status == 'not done');
+            
+        //     setToDos(notDone)
+        //   } catch (err){
+        //     console.log(err.message);
+        //   }   
+      }
 
     return(
         <>
         <header>
+            <div className="auth">
+               <a href="">Log In</a>
+               <a href="">Register</a>
+            </div>
             <h1>To Do List</h1>
             <p className="date">Date: {date.day}.{date.formattedMonth}.{date.year}</p>
         </header>
         <main>
             <div className="add-todo">
-                <form action="">
+                <form onSubmit={onAdd}>
                     <h2>Add To Do:</h2>
                     <label htmlFor="add-todo">
-                        <input type="text" name="todo" id="todo"/>
+                        <input type="text" name="action" value={values.action || ''} onChange={onChnageValue}/>
                         <button>Add</button>
                     </label>
                 </form>

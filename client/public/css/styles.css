@@ -11,6 +11,7 @@ body{
   
 header h1 {
     text-align: center;
+    margin-top: 0;
 }
 
 header {
@@ -129,5 +130,24 @@ i.finished{
 
 i.finished:hover{
     cursor: not-allowed;
+}
+
+.auth {
+    display: flex;
+    justify-content: space-between;
+}
+
+.auth a {
+    color: #e6e0f8;
+    text-decoration: none;
+    background: #4743dd;
+    padding: 8px 13px;
+    border-radius: 8px;
+}
+
+.auth a:hover{
+    background: #8682ff;
+    border: 1px solid #4743dd;
+    color: #4743dd;
 }
 
