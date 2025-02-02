@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react"
-import { createTodo, getAllTodos } from "../../api/todoAPI";
+import { createTodo, getAllTodos, getSingleTodo } from "../../api/todoAPI";
 import ToDoRow from "./ToDoRow";
 import DoneToDos from "./DoneToDos";
 import { UserContext } from "../../contexts/UserContext";
@@ -10,7 +10,7 @@ export default function Home(){
     const [values, setValues] = useState({
         action: '',
         status: 'not done',
-        ownerId: user?._id
+        _ownerId: user?._id
     })
     const [toDos, setToDos] = useState([]);
     const [doneOnes, setDoneOnes] = useState([]);
@@ -22,8 +22,8 @@ export default function Home(){
             console.log(response);
             
 
-          const done = response.filter(todo => todo.status == 'done' && todo.ownerId == user._id);
-          const notDone = response.filter(todo => todo.status == 'not done' && todo.ownerId == user._id);
+          const done = response.filter(todo => todo.status == 'done' && todo._ownerId == user._id);
+          const notDone = response.filter(todo => todo.status == 'not done' && todo._ownerId == user._id);
 
             setToDos(notDone);
             setDoneOnes(done);
@@ -46,13 +46,26 @@ export default function Home(){
         try{
             await createTodo(values);
             const newToDos = await getAllTodos(); 
-            const notDone = newToDos.filter(todo => todo.status == 'not done' && todo.ownerId == user._id);
+            const notDone = newToDos.filter(todo => todo.status == 'not done' && todo._ownerId == user._id);
             
             setToDos(notDone)
           } catch (err){
             console.log(err.message);
           }   
       }
+
+      const refreshTodos = async () => {
+        try {
+          const response = await getAllTodos();
+          const done = response.filter(todo => todo.status === 'done' && todo._ownerId === user._id);
+          const notDone = response.filter(todo => todo.status === 'not done' && todo._ownerId === user._id);
+      
+          setToDos(notDone);
+          setDoneOnes(done);
+        } catch (err) {
+          console.log(err.message);
+        }
+      };
 
     return(
   
@@ -75,10 +88,11 @@ export default function Home(){
                 toDos.map(todo => 
                     <ToDoRow 
                         key={todo._id}
-                        action = {todo.action}
+                        todo= {todo}
+                        refreshTodos={refreshTodos} 
                     />
                 )
-                : <p>No To Do's yet.</p>  
+                : <p className="empty">Everything done/No To Do's yet</p>  
                 }
                 </ul> 
             </div>
