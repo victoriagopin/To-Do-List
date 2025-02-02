@@ -151,5 +151,27 @@ i.finished:hover{
     color: #4743dd;
 }
 
+p.no-user {
+    width: 70%;
+    margin:  60px auto 0 auto;
+    font-size: larger;
+    text-align: center;
+    color: grey;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    flex-direction: column;
+}
+
+p.no-user a{
+    text-decoration: none;
+}
+
+p.empty{
+    text-align: center;
+    color: gray;
+    margin-left: -10px;
+}
+
 
 
