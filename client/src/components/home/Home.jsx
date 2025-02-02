@@ -19,9 +19,7 @@ export default function Home(){
         (async function getToDos(){
           try{
           const response = await getAllTodos(); 
-            console.log(response);
-            
-
+          
           const done = response.filter(todo => todo.status == 'done' && todo._ownerId == user._id);
           const notDone = response.filter(todo => todo.status == 'not done' && todo._ownerId == user._id);
 
