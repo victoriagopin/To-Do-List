@@ -20,8 +20,8 @@ export default function Home(){
           try{
           const response = await getAllTodos(); 
           
-          const done = response.filter(todo => todo.status == 'done' && todo._ownerId == user._id);
-          const notDone = response.filter(todo => todo.status == 'not done' && todo._ownerId == user._id);
+          const done = response.filter(todo => todo.status == 'done' && todo._ownerId == user?._id);
+          const notDone = response.filter(todo => todo.status == 'not done' && todo._ownerId == user?._id);
 
             setToDos(notDone);
             setDoneOnes(done);
@@ -44,7 +44,7 @@ export default function Home(){
         try{
             await createTodo(values);
             const newToDos = await getAllTodos(); 
-            const notDone = newToDos.filter(todo => todo.status == 'not done' && todo._ownerId == user._id);
+            const notDone = newToDos.filter(todo => todo.status == 'not done' && todo._ownerId == user?._id);
             
             setToDos(notDone)
           } catch (err){
@@ -55,8 +55,8 @@ export default function Home(){
       const refreshTodos = async () => {
         try {
           const response = await getAllTodos();
-          const done = response.filter(todo => todo.status === 'done' && todo._ownerId === user._id);
-          const notDone = response.filter(todo => todo.status === 'not done' && todo._ownerId === user._id);
+          const done = response.filter(todo => todo.status === 'done' && todo._ownerId === user?._id);
+          const notDone = response.filter(todo => todo.status === 'not done' && todo._ownerId === user?._id);
       
           setToDos(notDone);
           setDoneOnes(done);

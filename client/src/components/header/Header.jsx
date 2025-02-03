@@ -1,18 +1,33 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { formatDate } from "../../heplers/dateFormatter";
 import { useContext } from "react";
 import { UserContext } from "../../contexts/UserContext";
+import { logout } from "../../api/todoAPI";
 
 export default function Header(){
       const date = formatDate();
-      const {user} = useContext(UserContext);
+      const {user, setUser, updateIsAuthenticated} = useContext(UserContext);
+      const navigate = useNavigate();
+
+    const loggingOut = async () => {
+        try {
+            await logout();
+
+            setUser(null);
+            updateIsAuthenticated();
+            localStorage.clear();
+            navigate('/');
+        }catch (err){
+            console.log(err.message);
+          }
+    }
 
     return (
         <header>
             {user ? 
             <>
             <div className="auth">
-                <Link to="" className="logout">Log Out</Link>
+                <Link to="" className="logout" onClick={loggingOut}>Log Out</Link>
             </div>
             <p className="date">Date: {date.day}.{date.formattedMonth}.{date.year}</p>
             </>

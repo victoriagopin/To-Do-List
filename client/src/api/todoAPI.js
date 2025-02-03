@@ -24,3 +24,8 @@ export async function  deleteTodo(id) {
     const deleted = await del(`data/todo/${id}`);
     return deleted;
 }
+
+export async function logout(){
+    const res = await get('users/logout');
+    return res;
+}
