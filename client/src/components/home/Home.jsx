@@ -46,7 +46,12 @@ export default function Home(){
             const newToDos = await getAllTodos(); 
             const notDone = newToDos.filter(todo => todo.status == 'not done' && todo._ownerId == user?._id);
             
-            setToDos(notDone)
+            setToDos(notDone);
+            setValues({
+              action: '',
+              status: 'not done',
+              _ownerId: user?._id
+            })
           } catch (err){
             console.log(err.message);
           }   
