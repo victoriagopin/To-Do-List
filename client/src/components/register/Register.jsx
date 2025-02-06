@@ -11,6 +11,9 @@ export default function Register(){
         password : '',
         repass: ''
     });
+    const [isAvaliable, setIsAvaliable] = useState(true);
+    const [isPasswordLongEnough, setIsPasswordLongEnough] = useState(true);
+    const [passwordsMatch, setPasswordsMatch] = useState(true);
     const navigate = useNavigate();
 
   const onChangeHandler = (e) =>{
@@ -22,8 +25,41 @@ export default function Register(){
 
     const onSubmit = async (e) =>{
         e.preventDefault();
+
+
+        let hasErrors = false;
+
+        if(!values.email){
+            setIsAvaliable(false);
+              hasErrors = true;
+              setTimeout(() => setIsAvaliable(true), 3000);
+              return;
+          }
+          if (values.password.length < 6) {
+            setIsPasswordLongEnough(false);
+            hasErrors = true;
+            setTimeout(() => setIsPasswordLongEnough(true), 3000);
+            return;
+          }
+      
+          if (values.password !== values.repass) {
+            setPasswordsMatch(false);
+            hasErrors = true;
+            setTimeout(() => setPasswordsMatch(true), 3000);
+            return;
+          }
+
          try{
             const response = await post('users/register', values);
+
+
+            if(typeof response == 'number'){
+                setIsAvaliable(false);
+                hasErrors = true;
+                setTimeout(() => setIsAvaliable(true), 3000);
+                return;
+            }
+
             setUser(response);
             updateIsAuthenticated();
             localStorage.setItem('auth', JSON.stringify(response.accessToken));
@@ -37,6 +73,9 @@ export default function Register(){
  
                <main>
                     <form className={style['form-register']} onSubmit={onSubmit}>
+                    {!isAvaliable && <p className="error-register">Email is already taken!</p>}
+                    {!passwordsMatch && <p className="error-register">Passwords do not match!</p>}
+                    {!isPasswordLongEnough && <p className="error-register">Password must be at least 6 characters long!</p>}
                         <label htmlFor="email" className={style.email}>
                             <p className={style.email}>Email:</p><input type="text" name="email" className={style.email} value={values.email} onChange={onChangeHandler}/>
                         </label>
