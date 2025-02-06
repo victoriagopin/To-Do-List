@@ -10,6 +10,7 @@ export default function Login(){
         email : '',
         password : ''
     });
+    const [errors, setErrors] = useState(false);
     const navigate = useNavigate();
 
     const onChangeHandler = (e) =>{
@@ -21,8 +22,38 @@ export default function Login(){
 
     const onSubmit = async (e) =>{
         e.preventDefault();
+
+          let hasErrors = false;
+
+    if(!values.email){
+      setIsAvaliable(false);
+        hasErrors = true;
+        setTimeout(() => setIsAvaliable(true), 3000);
+        return;
+    }
+    if (values.password.length < 6) {
+      setIsPasswordLongEnough(false);
+      hasErrors = true;
+      setTimeout(() => setIsPasswordLongEnough(true), 3000);
+      return;
+    }
+
+    if (values.password !== values.repass) {
+      setPasswordsMatch(false);
+      hasErrors = true;
+      setTimeout(() => setPasswordsMatch(true), 3000);
+      return;
+    }
+
          try{
-            const res = await post('users/login', values)
+            const res = await post('users/login', values);
+
+            if(typeof res == 'number') {
+                setErrors(true);
+                setTimeout(() => setErrors(false), 3000);
+                return;
+            }
+
             setUser(res);
             updateIsAuthenticated();
             localStorage.setItem('auth', JSON.stringify(res.accessToken));
@@ -35,6 +66,7 @@ export default function Login(){
     return(
                <main>
                     <form className={style['form-login']} onSubmit={onSubmit}>
+                    {errors ? <p className="error">Incorrect email or password!</p> : null}
                         <label htmlFor="email" className={style.email}>
                             <p className={style.email}>Email:</p><input type="text" name="email" className={style.email} value={values.email} onChange={onChangeHandler}/>
                         </label>

@@ -173,5 +173,14 @@ p.empty{
     margin-left: -10px;
 }
 
+p.error{
+    color: red;
+    font-size: 14px;
+}
+
+p.error-register{
+    color: red;
+    font-size: 12px;
+}
 
 
